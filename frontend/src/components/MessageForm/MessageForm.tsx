@@ -20,13 +20,14 @@ const MessageForm: React.FC<Props> = ({onSubmit, isLoading = false}) => {
   const [message, setMessage] = useState(initialState);
 
   const changeMessage = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setMessage((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
+    const {name, value} = e.target;
+    setMessage((prevState) => ({
+      ...prevState,
+      [name]: value,
     }));
   };
 
-  const fileInputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const fileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const {name, files} = e.target;
     if (files) {
       setMessage(prevState => ({
@@ -68,7 +69,7 @@ const MessageForm: React.FC<Props> = ({onSubmit, isLoading = false}) => {
           </Grid>
           <Grid>
             <FileInput
-              onChange={fileInputChangeHandler}
+              onChange={fileInputChange}
               name="image"
               label="Изображение"
             />
